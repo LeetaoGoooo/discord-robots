@@ -31,6 +31,7 @@ This project sets up a Discord bot using Python that utilizes the Gemini API to 
     export GUILD=GUILD
     export GEMINI_KEY=GEMINI_KEY
     ```
+    [👉How to get your own guild](https://support.discord.com/hc/en-us/articles/206346498)
 
 4. Run the bot:
 
