@@ -6,11 +6,23 @@ from api.gemini import reply,rewrite_prompt
 from api.bing import create_image
 from urllib.parse import urlparse
 
+# your own server guild
+MY_GUILD = discord.Object(id=os.getenv("GUILD"))
+
+class MyClient(discord.Client):
+    def __init__(self, *, intents: discord.Intents):
+        super().__init__(intents=intents)
+        self.tree = app_commands.CommandTree(self)
+
+    async def setup_hook(self):
+        # This copies the global commands over to your guild.
+        self.tree.copy_global_to(guild=MY_GUILD)
+        await self.tree.sync(guild=MY_GUILD)
+
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = discord.Client(intents=intents)
-tree = app_commands.CommandTree(bot)
+bot = MyClient(intents=intents)
 
 
 @bot.event
@@ -27,27 +39,29 @@ async def on_message(message):
             await message.channel.send(response)
 
 
-@tree.command(name="bing-prompt", description="use bing create to create images")
+@bot.tree.command(name="bing-prompt", description="use bing create to create images")
 @app_commands.describe(
     prompt='prompt for create images',
 )
 async def prompt_bing(interaction: discord.Interaction, prompt:str):
+    await interaction.response.defer()
     image_list = create_image(prompt)
     parsed_url = urlparse(image_list[0])
     embeds = [discord.Embed(url=f'{parsed_url.scheme}://{parsed_url.netloc}').set_image(url=image) for image in image_list]
-    interaction.response.send_message(embeds=embeds)
+    await interaction.followup.send(embeds=embeds)
 
 
-@tree.command(name="bing-prompt-pro", description="use gemini to enhance bing create to create better images")
+@bot.tree.command(name="bing-prompt-pro", description="use gemini to enhance bing create to create better images")
 @app_commands.describe(
     prompt='prompt for create images',
 )
 async def prompt_bing(interaction: discord.Interaction, prompt:str):
+    await interaction.response.defer()
     prompt = rewrite_prompt(prompt)
     image_list = create_image(prompt)
     parsed_url = urlparse(image_list[0])
     embeds = [discord.Embed(url=f'{parsed_url.scheme}://{parsed_url.netloc}').set_image(url=image) for image in image_list]
-    interaction.response.send_message(embeds=embeds)
+    await interaction.followup.send(embeds=embeds)
 
 
 def run():
