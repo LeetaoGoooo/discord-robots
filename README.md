@@ -23,7 +23,7 @@ This project sets up a Discord bot using Python that utilizes the Gemini API to 
     pip install -r requirements.txt
     ```
 
-3. Set up the Discord bot token:
+3. Set up the token:
 
     ```shell
     export DISCORD_TOKEN=DISCORD_TOKEN
@@ -31,9 +31,11 @@ This project sets up a Discord bot using Python that utilizes the Gemini API to 
     export GUILD=GUILD
     export GEMINI_KEY=GEMINI_KEY
     ```
-    [👉How to get your own guild](https://support.discord.com/hc/en-us/articles/206346498)
 
-4. Run the bot:
+    1. [How to get GUILD](https://support.discord.com/hc/en-us/articles/206346498)
+    2. [How to get BING_TOKEN](https://github.com/yihong0618/tg_bing_dalle#method-1-run-python-directly)
+   
+5. Run the bot:
 
     ```shell
     python bot.py
