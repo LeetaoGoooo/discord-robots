@@ -50,7 +50,7 @@ docker run  --name name -d  -e DISCORD_TOKEN=DISCORD_TOKEN -e GEMINI_KEY=GEMINI_
 
 Once the bot is running, you can invite it to your Discord server and interact with it using various commands. Here are some examples:
 
-<image src="./screens/answer-question.png" width="300"/><image src="./screens/image-recognize.png" width="300"/><image src="./screens/bing-create.png" width="300"/>
+<image src="./screens/answer-question.png" width="300"/><image src="./screens/image-recognize.png" width="300"/><image src="./screens/bing-create.png" width="300"/><image src="./screens/bing-prompt.png" width="300"/><image src="./screens/bing-prompt-gemini-rewrite.png" width="300"/>
 
 Please refer to the documentation for more details on available commands and their usage.
 
