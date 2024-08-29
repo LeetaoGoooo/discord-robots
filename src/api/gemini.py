@@ -77,3 +77,26 @@ async def _reply_with_attachments(prompt: str, attachments: List[Attachment]) ->
 def rewrite_prompt(prompt: str):
     prompt = f"revise `{prompt}` to a DALL-E prompt, return the content in English only return the scene and detail"
     return _reply_only_message(prompt)
+
+
+def explain_word(word: str):
+    prompt =f"""
+        Please provide a comprehensive analysis of the given English word. Your response should include the following elements:
+
+        1. Part of Speech: Identify the word's grammatical category (e.g., noun, verb, adjective, adverb, etc.).
+
+        2. English Definition: Provide a clear and concise explanation of the word's meaning in English. If the word has multiple meanings, list the most common ones.
+
+        3. Example Sentences: Create at least two example sentences that demonstrate the correct usage of the word in context. These sentences should be diverse and showcase different aspects of the word's meaning or usage.
+
+        4. Additional Information (optional): If relevant, include any of the following:
+        - Etymology (word origin)
+        - Synonyms and antonyms
+        - Common collocations or phrases
+        - Any notable connotations or idiomatic uses
+
+        Please format your response clearly, using headings for each section to ensure easy readability.
+
+        Example word to analyze: [{word}]
+    """
+    return _reply_only_message(prompt)

@@ -2,7 +2,7 @@ import discord
 import os
 from discord import app_commands
 
-from api.gemini import reply, rewrite_prompt
+from api.gemini import explain_word, reply, rewrite_prompt
 from api.bing import create_image
 from urllib.parse import urlparse
 
@@ -71,6 +71,17 @@ async def prompt_bing(interaction: discord.Interaction, prompt: str):
     await interaction.followup.send(content=f'gemini rewrite:{prompt}',
                                     embeds=embeds)
 
+@bot.tree.command(name="eudic-word", description="query word and save word in notebook ")
+@app_commands.describe(
+    prompt='query word in eudic',
+)
+async def query_word(interaction: discord.Interaction, prompt: str):
+    await interaction.response.defer()
+    content = explain_word(prompt)
+    try:
+        await interaction.followup.send(content=content)
+    except:
+        await interaction.followup.send(content="Failed, please try again")
 
 def run():
     bot.run(os.getenv("DISCORD_TOKEN"))
