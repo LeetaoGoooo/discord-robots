@@ -4,6 +4,7 @@ from discord import app_commands
 
 from api.gemini import explain_word, reply, rewrite_prompt
 from api.bing import create_image
+from api.book import get_image_from_douban
 from urllib.parse import urlparse
 
 # your own server guild
@@ -71,17 +72,35 @@ async def prompt_bing(interaction: discord.Interaction, prompt: str):
     await interaction.followup.send(content=f'gemini rewrite:{prompt}',
                                     embeds=embeds)
 
+
 @bot.tree.command(name="eudic-word", description="query word and save word in notebook ")
 @app_commands.describe(
-    prompt='query word in eudic',
+    word='query word in eudic',
 )
-async def query_word(interaction: discord.Interaction, prompt: str):
+async def query_word(interaction: discord.Interaction, word: str):
     await interaction.response.defer()
-    content = explain_word(prompt)
+    content = explain_word(word)
     try:
         await interaction.followup.send(content=content)
     except:
         await interaction.followup.send(content="Failed, please try again")
+
+
+@bot.tree.command(name="book-cover", description="query book cover by name")
+@app_commands.describe(
+    book_name='get book cover by name',
+)
+async def query_book_cover(interaction: discord.Interaction, book_name: str):
+    await interaction.response.defer()
+    book_cover_link = get_image_from_douban(book_name)
+    parsed_url = urlparse(book_cover_link)
+    embed = discord.Embed(
+        url=f'{parsed_url.scheme}://{parsed_url.netloc}').set_image(url=book_cover_link)
+    try:
+       await interaction.followup.send(content=book_cover_link, embed=embed)
+    except:
+       await interaction.followup.send(content="Failed, please try again")
+
 
 def run():
     bot.run(os.getenv("DISCORD_TOKEN"))
