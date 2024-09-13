@@ -5,7 +5,9 @@ from discord import app_commands
 from api.gemini import explain_word, reply, rewrite_prompt
 from api.bing import create_image
 from api.book import get_image_from_douban
+from api.github.models.openai import english_flash_card
 from urllib.parse import urlparse
+import cairosvg
 
 # your own server guild
 MY_GUILD = discord.Object(id=os.getenv("GUILD"))
@@ -101,6 +103,18 @@ async def query_book_cover(interaction: discord.Interaction, book_name: str):
     except:
        await interaction.followup.send(content="Failed, please try again")
 
+@bot.tree.command(name="english-flash-card", description="generate english flash card")
+@app_commands.describe(
+    english_word='english word',
+)
+async def generate_english_flash_card(interaction: discord.Interaction, english_word: str):
+    await interaction.response.defer()
+    svg_flash_card = english_flash_card(prompt=english_word)
+    png_bytes = cairosvg.svg2png(bytestring=svg_flash_card.encode(encoding='utf-8'), output_width=400, output_height=600)
+    try:
+        await interaction.followup.send(content=english_word, file=discord.File(png_bytes))
+    except:
+        await interaction.followup.send(content="Failed, please try again")
 
 def run():
     bot.run(os.getenv("DISCORD_TOKEN"))
