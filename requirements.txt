@@ -1,3 +1,6 @@
 discord.py==2.3.2
 google-generativeai==0.3.1
 BingImageCreator-fork==0.7.3
+openai==1.45.0
+cairosvg
+httpx[socks]
