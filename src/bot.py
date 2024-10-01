@@ -5,9 +5,9 @@ from discord import app_commands
 from api.gemini import explain_word, reply, rewrite_prompt
 from api.bing import create_image
 from api.book import get_image_from_douban
-from api.github.models.openai import english_flash_card
+from api.excerpt_card import excerpt_card
 from urllib.parse import urlparse
-import cairosvg
+from datetime import datetime
 
 # your own server guild
 MY_GUILD = discord.Object(id=os.getenv("GUILD"))
@@ -103,17 +103,31 @@ async def query_book_cover(interaction: discord.Interaction, book_name: str):
     except:
        await interaction.followup.send(content="Failed, please try again")
 
-@bot.tree.command(name="english-flash-card", description="generate english flash card")
+@bot.tree.command(name="excerpt-card", description="generate excerpt card")
 @app_commands.describe(
-    english_word='english word',
+    title='excerpt title',
+    author='author',
+    excerpt="excerpt",
+    theme="the theme of excerpt card (1-6)",
+    qr_code="using text to generate qr code"
 )
-async def generate_english_flash_card(interaction: discord.Interaction, english_word: str):
+async def query_book_cover(interaction: discord.Interaction, title: str, author:str, excerpt:str, theme:int, qr_code:str):
     await interaction.response.defer()
-    svg_flash_card = english_flash_card(prompt=english_word)
-    png_bytes = cairosvg.svg2png(bytestring=svg_flash_card.encode(encoding='utf-8'), output_width=400, output_height=600)
+    created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    user_input = {
+        "title": title,
+        "author": author,
+        "excerpt":excerpt,
+        "theme": theme,
+        "qr_code":qr_code,
+        "created_at": created_at
+    }
+    file_path = excerpt_card(user_input)
     try:
-        await interaction.followup.send(content=english_word, file=discord.File(png_bytes))
-    except:
+        await interaction.followup.send(content=excerpt, file=discord.File(file_path))
+        file_path.unlink(missing_ok=True)
+    except Exception as e:
+        print(f"send message failed, {e}")        
         await interaction.followup.send(content="Failed, please try again")
 
 def run():

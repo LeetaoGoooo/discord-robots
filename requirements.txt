@@ -4,3 +4,9 @@ BingImageCreator-fork==0.7.3
 openai==1.45.0
 cairosvg
 httpx[socks]
+Jinja2>=3.1.4
+dataclasses-json>=0.6.7
+pyqrcode>=1.2.1
+pypng>=0.20220715.0
+selenium>=4.25.0
+webdriver-manager>=4.0.2
