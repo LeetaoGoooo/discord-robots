@@ -1,12 +1,18 @@
 # Discord Gemini Robot
 
-This project sets up a Discord bot using Python that utilizes the Gemini API to answer questions and recognize image . Additionally, it integrates with Bing Create to create images and enhances the creation process using Gemini.
+This project sets up a Discord bot using Python.
+
+1. Answer questions and recognize image using Gemini 
+2. Create images using Bing Create
+3. Enhances No.2 creation process using Gemini
+4. Create excerpt card
 
 ## Features
 
 - Question Answering: The bot can answer questions using the Gemini API.
 - Image Recognize: The bot can recognize the content of the image.
 - Bing Create Integration: The bot can create images using Bing Create and enhance the creation process using Gemini.
+- Excerpt Card: The bot can create an excerpt card
 
 ## Installation
 
@@ -52,7 +58,7 @@ docker run  --name name -d  -e DISCORD_TOKEN=DISCORD_TOKEN -e GEMINI_KEY=GEMINI_
 
 Once the bot is running, you can invite it to your Discord server and interact with it using various commands. Here are some examples:
 
-<image src="./screens/answer-question.png" width="300"/><image src="./screens/image-recognize.png" width="300"/><image src="./screens/bing-create.png" width="300"/><image src="./screens/bing-prompt.png" width="300"/><image src="./screens/bing-prompt-gemini-rewrite.png" width="300"/>
+<image src="./screens/answer-question.png" width="300"/><image src="./screens/image-recognize.png" width="300"/><image src="./screens/bing-create.png" width="300"/><image src="./screens/bing-prompt.png" width="300"/><image src="./screens/bing-prompt-gemini-rewrite.png" width="300"/><image src="./screens/excerpt-card.png" width="300"/>
 
 Please refer to the documentation for more details on available commands and their usage.
 
