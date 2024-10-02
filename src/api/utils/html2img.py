@@ -27,7 +27,7 @@ def html2img_with_selector(html_str:str, id_selector:str) -> Path:
         time.sleep(6) # TODO 优化
         element = driver.find_element(By.ID, id_selector)
         element.screenshot(screen_shoot_path.name)
-        # file_path.unlink(missing_ok=True)
+        file_path.unlink(missing_ok=True)
         return screen_shoot_path
     except Exception as e:
         print(f"Screenshot failed: {e}")
