@@ -21,13 +21,13 @@ def html2img_with_selector(html_str:str, id_selector:str) -> Path:
     file_path = work_dir.joinpath(f'{file_name}.html')
     screen_shoot_path = work_dir.joinpath(f'{file_name}.png')
     try:
-        with open(file_path,'w+') as f:
+        with open(file_path,'w+', encoding='utf-8') as f:
             f.write(html_str)
         driver.get(f"file://{file_path}")
         time.sleep(6) # TODO 优化
         element = driver.find_element(By.ID, id_selector)
         element.screenshot(screen_shoot_path.name)
-        file_path.unlink(missing_ok=True)
+        # file_path.unlink(missing_ok=True)
         return screen_shoot_path
     except Exception as e:
         print(f"Screenshot failed: {e}")

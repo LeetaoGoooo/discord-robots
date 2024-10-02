@@ -4,8 +4,13 @@ RUN apt-get update \
     && apt-get -y install git \
     gcc \ 
     firefox-esr \
-    python3-dev
-    
+    python3-dev \
+    fonts-arphic-ukai \
+    fonts-arphic-uming \
+    fonts-ipafont-mincho \ 
+    fonts-ipafont-gothic \
+    fonts-unfonts-core
+
 WORKDIR /src
 
 RUN pip install --upgrade pip
