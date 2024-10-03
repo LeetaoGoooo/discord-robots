@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 from dataclasses_json import dataclass_json
 from typing import Dict
 from jinja2 import FileSystemLoader, Environment
@@ -11,12 +11,12 @@ work_dir = Path.cwd()
 @dataclass_json
 @dataclass
 class ExcerptCard:
-    title: str
-    author: str
+    title: Optional[str]
+    author: Optional[str]
     created_at: str
     excerpt: str
-    theme: int
-    qr_code: str
+    theme: Optional[int]
+    qr_code: Optional[str]
 
 
 def excerpt_card(user_input: Dict) -> Path:

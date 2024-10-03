@@ -1,3 +1,4 @@
+from typing import Optional
 import discord
 import os
 from discord import app_commands
@@ -109,18 +110,19 @@ async def query_book_cover(interaction: discord.Interaction, book_name: str):
     author='author',
     excerpt="excerpt",
     theme="the theme of excerpt card (1-6)",
-    qr_code="using text to generate qr code"
+    qr_code="using text to generate qr code",
+    timestamp = "add timestamp or not"
 )
-async def query_book_cover(interaction: discord.Interaction, title: str, author:str, excerpt:str, theme:int, qr_code:str):
+async def query_book_cover(interaction: discord.Interaction, title: Optional[str], author:Optional[str], excerpt:str, theme:Optional[int], qr_code:Optional[str], timestamp:Optional[bool]):
     await interaction.response.defer()
-    created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    created_at = datetime.now().strftime("%Y-%m-%d")
     user_input = {
         "title": title,
         "author": author,
         "excerpt":excerpt,
-        "theme": theme,
+        "theme": 1 if not theme else theme,
         "qr_code":qr_code,
-        "created_at": created_at
+        "created_at": created_at if timestamp else None
     }
     file_path = excerpt_card(user_input)
     try:

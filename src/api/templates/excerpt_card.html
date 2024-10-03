@@ -1,4 +1,5 @@
 {% set var_background_color = "#f0f0f0" %}
+
 {% if excerpt_card.theme > 3 %}
 {% set var_background_color = '#1a1a1a' %}
 {% endif %}
@@ -101,13 +102,20 @@
 </head>
 <body style="background-color: {{var_background_color}}">
     <div class="card theme-{{excerpt_card.theme}}" id="excerpt_card">
+        {% if excerpt_card.title %}
         <h1>{{excerpt_card.title}}</h1>
+        {% endif %}
         <div class="content">
+            {% if excerpt_card.created_at %}
             <div class="date">{{excerpt_card.created_at}}</div>
+            {% endif %}
             <p class="excerpt">{{excerpt_card.excerpt}}</p>
         </div>
         <div class="footer">
+            {% if excerpt_card.author %}
             <div class="author">{{excerpt_card.author}}</div>
+            {% endif %}
+
             {% if excerpt_card.qr_code %}
             <img src="data:image/jpeg;base64,{{excerpt_card.qr_code}}" alt="QR Code"
               class="qr-code">

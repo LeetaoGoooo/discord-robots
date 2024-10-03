@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 gorialis/discord.py
+FROM gorialis/discord.py
 
 RUN apt-get update \
     && apt-get -y install git \
