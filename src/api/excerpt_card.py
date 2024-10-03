@@ -13,7 +13,7 @@ work_dir = Path.cwd()
 class ExcerptCard:
     title: Optional[str]
     author: Optional[str]
-    created_at: str
+    created_at: Optional[str]
     excerpt: str
     theme: Optional[int]
     qr_code: Optional[str]
